@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>All clients</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+</head>
+<body>
+<table  class="table table align-middle table-hover table-bordered">
+    <caption>Show Clients</caption>
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Id</th>
+        <th scope="col">Full Name</th>
+        <th scope="col">Date of Birth</th>
+        <th scope="col">Gender</th>
+        <th scope="col">Into</th>
+    </tr>
+    </thead>
+    <tbody>
+    <div th:each="client, iState : ${clients}">
+        <tr>
+            <th scope="row" th:utext="${iState.count}">VALUE</th>
+            <td th:text="${client.getId()}">Id</td>
+            <td  th:text="${client.getPerson().getSurName + ' '
+       + client.getPerson().getGivenName() + ' ' + client.getPerson().getPatronymic()}">Full name</td>
+            <td th:text="${client.getPerson().getDateOfBirth()}">Birth date</td>
+            <td th:text="${client.getPerson().getSex()}">Gender</td>
+            <td>
+                <form th:method="GET" th:action="@{/clients/{id}(id=${client.getId()})}">
+                    <input type="submit" value="INTO"/>
+                </form>
+            </td>
+        </tr>
+    </div>
+    </tbody>
+    <tbottom>
+        <td colspan="6">
+            <a href="/clients/new">CREATE NEW CLIENT</a>
+        </td>
+    </tbottom>
+
+</table>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+</body>
+</html>
